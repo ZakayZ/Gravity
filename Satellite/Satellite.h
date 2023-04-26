@@ -15,7 +15,7 @@ class Satellite {
 
   Position& GetPosition() { return position_; }
 
-  const Position& GetPosition() const { return position_; }
+  [[nodiscard]] const Position& GetPosition() const { return position_; }
 
   [[nodiscard]] std::function<Position(Time, const Position&)> GetDerivative() const;
 

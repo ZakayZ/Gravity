@@ -26,8 +26,9 @@ Position PerturbationInitializer::Initialize() {
   auto orientation = Eigen::Quaterniond(std::cos(angle / 2), axis.x() * sin, axis.y() * sin, axis.z() * sin);
 
   auto outer_rotation = OrbitalPhysics::AngularVelocity(position, motion_normal);
-  auto angular_velocity = orientation._transformVector(
-      outer_rotation
-          + Randomizer::IsotropicVector() * Randomizer::NormalDistribution(angular_velocity_perturbation_));
+  Eigen::Vector3d
+      delta_velocity = Randomizer::IsotropicVector() * Randomizer::NormalDistribution(0, angular_velocity_perturbation_);
+  auto angular_velocity = orientation.conjugate()._transformVector(outer_rotation + delta_velocity);
+
   return {position, velocity, orientation, angular_velocity};
 }

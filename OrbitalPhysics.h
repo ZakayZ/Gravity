@@ -9,9 +9,9 @@
 
 class OrbitalPhysics {
  public:
-  static Eigen::Vector3d Velocity(Eigen::Vector3d position, Eigen::Vector3d normal);
+  static Eigen::Vector3d Velocity(const Eigen::Vector3d& position, const Eigen::Vector3d& normal);
 
-  static Eigen::Vector3d AngularVelocity(Eigen::Vector3d position, Eigen::Vector3d normal);
+  static Eigen::Vector3d AngularVelocity(const Eigen::Vector3d& position, const Eigen::Vector3d& normal);
 
   static double GetGravity();
 

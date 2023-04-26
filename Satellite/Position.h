@@ -32,19 +32,21 @@ class Position {
 
   Eigen::Vector3d& GetPosition() { return position_; }
 
-  const Eigen::Vector3d& GetPosition() const { return position_; }
+  [[nodiscard]] const Eigen::Vector3d& GetPosition() const { return position_; }
 
   Eigen::Vector3d& GetVelocity() { return velocity_; }
 
-  const Eigen::Vector3d& GetVelocity() const { return velocity_; }
+  [[nodiscard]] const Eigen::Vector3d& GetVelocity() const { return velocity_; }
 
   Eigen::Quaterniond& GetOrientation() { return orientation_; }
 
-  const Eigen::Quaterniond& GetOrientation() const { return orientation_; }
+  [[nodiscard]] const Eigen::Quaterniond& GetOrientation() const { return orientation_; }
 
   Eigen::Vector3d& GetAngVelocity() { return angular_velocity_; }
 
-  const Eigen::Vector3d& GetAngVelocity() const { return angular_velocity_; }
+  [[nodiscard]] const Eigen::Vector3d& GetAngVelocity() const { return angular_velocity_; }
+
+  [[nodiscard]] Eigen::Vector3d GetAbsAngVelocity() const { return orientation_._transformVector(angular_velocity_); }
 
  private:
   void NormaliseOrientation();
