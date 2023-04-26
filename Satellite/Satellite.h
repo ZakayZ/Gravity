@@ -11,7 +11,7 @@
 
 class Satellite {
  public:
-  Satellite(const Eigen::Matrix3d& inertia, double gravity, const Position& initial_position);
+  Satellite(const Eigen::Matrix3d& inertia, const Position& initial_position);
 
   Position& GetPosition() { return position_; }
 
@@ -22,7 +22,6 @@ class Satellite {
  private:
   const Eigen::Matrix3d inertia_;
   const Eigen::Matrix3d inv_inertia_;
-  const double gravity_pull_;
   Position position_;
 };
 

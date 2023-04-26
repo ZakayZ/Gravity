@@ -8,11 +8,8 @@
 #include <Eigen/Geometry>
 
 struct SimulationParameters {
-  SimulationParameters() = delete;
-
   const Eigen::Matrix<double, 3, 3> Inertia;
-  const double Gravity;
-  const double distance;
+  const double Distance;
 };
 
 #endif //GRAVITY__SIMULATIONPARAMETERS_H_

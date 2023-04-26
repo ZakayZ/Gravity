@@ -4,15 +4,13 @@
 
 #include "Satellite.h"
 #include "cmath"
+#include "../OrbitalPhysics.h"
 
-Satellite::Satellite(const Eigen::Matrix3d& inertia, double gravity, const Position& initial_position)
-    : inertia_(inertia),
-      inv_inertia_(inertia.inverse()),
-      gravity_pull_(gravity),
-      position_(initial_position) {}
+Satellite::Satellite(const Eigen::Matrix3d& inertia, const Position& initial_position)
+    : inertia_(inertia), inv_inertia_(inertia.inverse()), position_(initial_position) {}
 
 std::function<Position(Time, const Position&)> Satellite::GetDerivative() const {
-  return [&inertia = inertia_, &inv_inertia = inv_inertia_, grav = gravity_pull_]
+  return [&inertia = inertia_, &inv_inertia = inv_inertia_, grav = OrbitalPhysics::GetGravity()]
       (Time, const Position& pos) -> Position {
     auto ang_velocity_quaternion = Eigen::Quaterniond(0,
                                                       pos.GetAngVelocity().x(),

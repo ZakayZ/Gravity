@@ -17,7 +17,10 @@ class Simulation {
  public:
   using SimulationSolver = Solver<Time, Position, std::function<Position(Time, const Position&)>>;
 
-  Simulation(const Satellite& satellite, Time step, std::unique_ptr<SimulationSolver>&& solver, Metric<Time, Position>& metrics_monitor);
+  Simulation(const Satellite& satellite,
+             Time step,
+             std::unique_ptr<SimulationSolver>&& solver,
+             Metric<Time, Position>& metrics_monitor);
 
   void Run(Time duration);
 
