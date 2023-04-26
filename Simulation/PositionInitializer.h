@@ -9,7 +9,7 @@
 
 class PositionInitializer {
  public:
-  virtual Position Initialize() = 0;
+  virtual Position Initialize() const = 0;
 
   virtual ~PositionInitializer() = default;
 };

@@ -6,7 +6,7 @@
 
 Position::Position(const Eigen::Vector3d& initial_position,
                    const Eigen::Vector3d& initial_velocity,
-                   const Eigen::Quaternion<double>& initial_orientation,
+                   const GeneralQuaternion& initial_orientation,
                    const Eigen::Vector3d& initial_angular_velocity)
     : position_(initial_position),
       velocity_(initial_velocity),
@@ -25,7 +25,6 @@ Position& Position::operator+=(const Position& other) {
 
   angular_velocity_ += other.angular_velocity_;
 
-  NormaliseOrientation();
   return *this;
 }
 
@@ -41,7 +40,6 @@ Position& Position::operator-=(const Position& other) {
 
   angular_velocity_ -= other.angular_velocity_;
 
-  NormaliseOrientation();
   return *this;
 }
 
@@ -76,8 +74,7 @@ Position& Position::operator/=(double scalar) {
 }
 
 void Position::NormaliseOrientation() {
-  auto norm = std::sqrt(std::pow(orientation_.x(), 2) + std::pow(orientation_.y(), 2)
-                            + std::pow(orientation_.z(), 2) + std::pow(orientation_.w(), 2));
+  auto norm = orientation_.Norm();
 
   orientation_.x() /= norm;
   orientation_.y() /= norm;
@@ -85,16 +82,8 @@ void Position::NormaliseOrientation() {
   orientation_.w() /= norm;
 }
 
-Eigen::Quaterniond operator*(const Eigen::Quaterniond& q, double scale) {
-  return q * Eigen::Quaterniond(scale, 0, 0, 0);
-}
-
-Eigen::Quaterniond operator/(const Eigen::Quaterniond& q, double scale) {
-  return q * Eigen::Quaterniond(1 / scale, 0, 0, 0);
-}
-
-Eigen::Quaterniond operator*(double scale, const Eigen::Quaterniond& q) {
-  return q * scale;
+void Position::Fix() {
+  NormaliseOrientation();
 }
 
 Position operator+(const Position& lhs, const Position& rhs) {

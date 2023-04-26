@@ -6,8 +6,9 @@
 
 #include "StabilityTester.h"
 #include "Simulation/Simulation.h"
-#include "Metrics/Metric.h"
 #include "Solver/RungeKutta4.h"
+#include "Metrics/StabilityMetric.h"
+#include "OrbitalPhysics.h"
 
 using ThreadPool = boost::asio::thread_pool;
 
@@ -26,9 +27,7 @@ StabilityTester::StabilityTester(const SimulationParameters& parameters,
       initializer_(std::move(initializer)) {}
 
 float StabilityTester::TestOrientation() const {
-  Metric<Time, Position> empty_metric;
-
-  double threshold = 0.01;
+  const double threshold = 0.05;
 
   std::atomic<size_t> stable_iters = 0;
 
@@ -36,23 +35,22 @@ float StabilityTester::TestOrientation() const {
 
   for (size_t i = 0; i < iter_count_; ++i) {
     auto func = [&]() {
-      Metric<Time, Position> monitor;
+      auto orbital_angular_velocity = OrbitalPhysics::AngularVelocity(Eigen::Vector3d(parameters_.Distance, 0, 0),
+                                                                      Eigen::Vector3d(0, 0, 1));
+      StabilityMetric monitor(orbital_angular_velocity, threshold, threshold);
+
       Simulation simulation(Satellite(parameters_.Inertia, initializer_->Initialize()),
                             step_,
                             std::make_unique<TesterSolver>(),
                             monitor);
-      auto initial_angular_velocity = simulation.GetSatellite().GetPosition().GetAbsAngVelocity();
-      auto initial_distance = simulation.GetSatellite().GetPosition().GetAngVelocity().norm();
+
       simulation.Run(iter_duration_);
 
-      assert(std::abs(initial_distance - simulation.GetSatellite().GetPosition().GetAngVelocity().norm())
-                 < 0.01); // sanity check
-
-      if ((simulation.GetSatellite().GetPosition().GetAbsAngVelocity() - initial_angular_velocity).norm()
-          <= threshold * initial_angular_velocity.norm()) {
+      if (monitor.IsStable()) {
         stable_iters.fetch_add(1);
       }
     };
+//    func();
     boost::asio::post(pool, func);
   }
 

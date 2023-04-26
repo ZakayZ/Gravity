@@ -12,7 +12,9 @@ add_executable(Gravity main.cpp Satellite/Position.cpp
         StabilityTester.cpp
         Simulation/PerturbationInitializer.cpp
         OrbitalPhysics.cpp
-        Random/Randomizer.cpp)
+        Random/Randomizer.cpp
+        Metrics/StabilityMetric.cpp
+        GeneralQuaternion.cpp)
 
 target_include_directories(Gravity PUBLIC .)
 

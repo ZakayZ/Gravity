@@ -8,11 +8,11 @@
 #include "PositionInitializer.h"
 #include "SimulationParameters.h"
 
-class PerturbationInitializer : public PositionInitializer{
+class PerturbationInitializer : public PositionInitializer {
  public:
   PerturbationInitializer(const SimulationParameters& parameters, double angle, double angular_velocity);
 
-  Position Initialize() override;
+  Position Initialize() const override;
 
  private:
   double distance_;
