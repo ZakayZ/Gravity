@@ -5,7 +5,7 @@
 #include <boost/asio.hpp>
 
 #include "StabilityTester.h"
-#include "Simulation.h"
+#include "Simulation/Simulation.h"
 #include "Metrics/Metric.h"
 #include "Solver/RungeKutta4.h"
 

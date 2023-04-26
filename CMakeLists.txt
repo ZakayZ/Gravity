@@ -6,7 +6,15 @@ find_package(Boost 1.40.0 REQUIRED COMPONENTS system)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Gravity main.cpp Satellite/Position.cpp Satellite/Satellite.cpp Simulation.cpp StabilityTester.cpp PerturbationInitializer.cpp OrbitalPhysics.cpp Random/Randomizer.cpp)
-target_link_directories(Gravity PUBLIC ./)
+add_executable(Gravity main.cpp Satellite/Position.cpp
+        Satellite/Satellite.cpp
+        Simulation/Simulation.cpp
+        StabilityTester.cpp
+        Simulation/PerturbationInitializer.cpp
+        OrbitalPhysics.cpp
+        Random/Randomizer.cpp)
+
+target_include_directories(Gravity PUBLIC .)
+
 target_link_libraries(Gravity Eigen3::Eigen)
 target_link_libraries(Gravity ${Boost_LIBRARIES})

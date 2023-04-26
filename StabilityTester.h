@@ -5,10 +5,10 @@
 #ifndef GRAVITY__STABILITYTESTER_H_
 #define GRAVITY__STABILITYTESTER_H_
 
-#include "SimulationParameters.h"
+#include "Simulation/SimulationParameters.h"
 #include "DataTypes.h"
 #include "Satellite/Position.h"
-#include "PositionInitializer.h"
+#include "Simulation/PositionInitializer.h"
 
 class StabilityTester {
  public:

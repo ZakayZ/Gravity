@@ -1,6 +1,6 @@
 #include <iostream>
 #include "StabilityTester.h"
-#include "PerturbationInitializer.h"
+#include "Simulation/PerturbationInitializer.h"
 
 int main() {
   SimulationParameters params{.Inertia=Eigen::Matrix3d({{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}), // kg km^2
