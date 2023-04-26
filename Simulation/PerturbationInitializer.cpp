@@ -27,7 +27,7 @@ Position PerturbationInitializer::Initialize() const {
   auto outer_rotation = OrbitalPhysics::AngularVelocity(position, motion_normal);
   Eigen::Vector3d delta_velocity =
       Randomizer::IsotropicVector() * Randomizer::NormalDistribution(0, angular_velocity_perturbation_);
-  auto angular_velocity = orientation.Conjugate().Transform(outer_rotation + delta_velocity);
+  auto angular_velocity = orientation.InverseTransform(outer_rotation + delta_velocity);
 
   return {position, velocity, orientation, angular_velocity};
 }

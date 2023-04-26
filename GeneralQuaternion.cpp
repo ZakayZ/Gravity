@@ -42,9 +42,9 @@ Eigen::Vector3d GeneralQuaternion::Transform(const Eigen::Vector3d& vec) const {
   return ((*this) * vec * Conjugate()).vec;
 }
 
-//[[nodiscard]] Eigen::Vector3d InverseTransform(const Eigen::Vector3d& vec) const {
-//  return (Conjugate() * vec * (*this)).vec;
-//}
+[[nodiscard]] Eigen::Vector3d GeneralQuaternion::InverseTransform(const Eigen::Vector3d& vec) const {
+  return (Conjugate() * vec * (*this)).vec;
+}
 
 double GeneralQuaternion::SquaredNorm() const {
   return vec.squaredNorm() + std::pow(scalar, 2);

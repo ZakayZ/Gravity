@@ -37,7 +37,7 @@ class GeneralQuaternion {
 
   [[nodiscard]] Eigen::Vector3d Transform(const Eigen::Vector3d& vec) const;
 
-//  [[nodiscard]] Eigen::Vector3d InverseTransform(const Eigen::Vector3d& vec) const;
+  [[nodiscard]] Eigen::Vector3d InverseTransform(const Eigen::Vector3d& vec) const;
 
   [[nodiscard]] double SquaredNorm() const;
 
