@@ -15,7 +15,7 @@ class PerturbationInitializer : public PositionInitializer {
   Position Initialize() const override;
 
  private:
-  double distance_;
+  const SimulationParameters parameters_;
   double angle_perturbation_;
   double angular_velocity_perturbation_;
 };

@@ -1,4 +1,3 @@
-#include <iostream>
 #include <array>
 #include "StabilityTester.h"
 #include "Simulation/PerturbationInitializer.h"
@@ -20,7 +19,8 @@ int main() {
         {.Inertia=Eigen::Matrix3d({{inertia[permutation[0]], 0, 0},
                                    {0, inertia[permutation[1]], 0},
                                    {0, 0, inertia[permutation[2]]}}), // kg km^2
-            .Distance=distance};                                      // km
+            .InitialPosition=Eigen::Vector3d(distance, 0, 0),
+            .Normal=Eigen::Vector3d(0, 0, 1)};                                      // km
 
     StabilityTester tester(params, simulation_step, simulation_time, iterations,
                            std::make_unique<PerturbationInitializer>(params, sigma_phi, sigma_w));

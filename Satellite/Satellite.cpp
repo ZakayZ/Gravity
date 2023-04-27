@@ -19,7 +19,7 @@ std::function<Position(Time, const Position&)> Satellite::GetDerivative() const 
     auto dif = Position{pos.GetVelocity(),
                 (-grav / std::pow(distance, 3)) * pos.GetPosition(),
                 0.5 * (pos.GetOrientation() * pos.GetAngVelocity()),
-                -inv_inertia * (pos.GetAngVelocity().cross(inertia * pos.GetAngVelocity()) + gravity_momentum)};
+                inv_inertia * (gravity_momentum - pos.GetAngVelocity().cross(inertia * pos.GetAngVelocity()))};
     return dif;
   };
 }

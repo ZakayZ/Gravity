@@ -9,7 +9,8 @@
 
 struct SimulationParameters {
   const Eigen::Matrix<double, 3, 3> Inertia;
-  const double Distance;
+  const Eigen::Vector3d InitialPosition;
+  const Eigen::Vector3d Normal;
 };
 
 #endif //GRAVITY__SIMULATIONPARAMETERS_H_

@@ -35,8 +35,8 @@ float StabilityTester::TestOrientation() const {
 
   for (size_t i = 0; i < iter_count_; ++i) {
     auto func = [&]() {
-      auto orbital_angular_velocity = OrbitalPhysics::AngularVelocity(Eigen::Vector3d(parameters_.Distance, 0, 0),
-                                                                      Eigen::Vector3d(0, 0, 1));
+      auto orbital_angular_velocity = OrbitalPhysics::AngularVelocity(parameters_.InitialPosition,
+                                                                      parameters_.Normal);
       StabilityMetric monitor(orbital_angular_velocity, threshold, threshold);
 
       Simulation simulation(Satellite(parameters_.Inertia, initializer_->Initialize()),
